@@ -1,8 +1,8 @@
 package commands;
 
 import main.BungeeHelper;
-import net.md_5.bungee.BungeeCord;
 import net.md_5.bungee.api.CommandSender;
+import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -23,8 +23,8 @@ public class HelpCMD extends Command {
                     msg = msg + " " + args[i];
 
             }
-            for(ProxiedPlayer pp : BungeeCord.getInstance().getPlayers()) {
-                if(pp.hasPermission("BungeeHelper.HelpPlayer")) {
+            for(ProxiedPlayer pp : ProxyServer.getInstance().getPlayers()) {
+                if(pp.hasPermission("main.BungeeHelper.HelpPlayer")) {
                     pp.sendMessage(BungeeHelper.prefix + "Der Spieler §6" + p.getName() + "§r braucht Hilfe.");
                     pp.sendMessage(BungeeHelper.prefix + "Nachricht:§a " + msg);
                     TextComponent message1 = new TextComponent("[§aAnsehen§r]");
