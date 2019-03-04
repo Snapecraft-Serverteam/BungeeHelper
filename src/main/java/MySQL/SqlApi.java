@@ -11,8 +11,8 @@ public class SqlApi {
      */
     public static void executeSQL(String query) {
         String url = "jdbc:mysql://localhost:3306/bans?useSSL=false";
-        String user = "root";
-        String password = "test";
+        String user = "banUser";
+        String password = "v5PUz845fRqqXRy";
 
         try {
             Connection con = DriverManager.getConnection(url, user, password);
@@ -33,8 +33,8 @@ public class SqlApi {
     public static String executeQuery(String query) {
 
         String url = "jdbc:mysql://localhost:3306/bans?useSSL=false";
-        String user = "root";
-        String password = "test";
+        String user = "banUser";
+        String password = "v5PUz845fRqqXRy";
 
         try (Connection con = DriverManager.getConnection(url, user, password);
              Statement st = con.createStatement();

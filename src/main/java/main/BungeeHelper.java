@@ -4,14 +4,17 @@ import API.BanAPI;
 import API.OfflineUniqueID;
 import Listener.ChatListener;
 import Listener.LoginListener;
+import REST.RequestHandler;
 import bansystem.BanCMDs;
 import bansystem.unbanByUIDCMD;
 import bansystem.unbanCMD;
+import com.sun.net.httpserver.HttpServer;
 import commands.*;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Plugin;
 
+import java.net.InetSocketAddress;
 import java.util.UUID;
 
 public class BungeeHelper extends Plugin {
@@ -61,7 +64,18 @@ public class BungeeHelper extends Plugin {
         //EVENTS
         ProxyServer.getInstance().getPluginManager().registerListener(this, new LoginListener());
         ProxyServer.getInstance().getPluginManager().registerListener(this, new ChatListener());
-    }
 
+
+        //Starting the REST API webserver
+        HttpServer server = null;
+        try {
+            server = HttpServer.create(new InetSocketAddress(8000), 0);
+            server.createContext("/isplayeronline", new RequestHandler());
+            server.setExecutor(null); // creates a default executor
+            server.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
 

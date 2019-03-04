@@ -73,84 +73,135 @@ public class BanCMDs extends Command {
                     break;
                 case 2:
 
-                    Integer banID = Integer.parseInt(args[1]);
-                    ProxiedPlayer playerToBan = ProxyServer.getInstance().getPlayer(args[0]);
-                    switch (banID) {
-                        case 1:
-                            BanAPI.banPlayer(playerToBan.getUniqueId(), ((ProxiedPlayer) sender).getUniqueId(), "Hacking", TimeUnit.DAYS.toMillis(30));
-                            ProxyServer.getInstance().getPlayer(playerToBan.getUniqueId()).disconnect();
-                            sender.sendMessage(BungeeHelper.prefix + "§aSpieler wegen §cHACKING §agebannt!");
-                            break;
-                        case 2:
-                            BanAPI.banPlayer(playerToBan.getUniqueId(), ((ProxiedPlayer) sender).getUniqueId(), "Beleidigung", TimeUnit.DAYS.toMillis(15));
-                            ProxyServer.getInstance().getPlayer(playerToBan.getUniqueId()).disconnect();
-                            sender.sendMessage(BungeeHelper.prefix + "§aSpieler wegen §cBELEIDIGUNG §agebannt!");
-                            break;
-                        case 3:
-                            BanAPI.banPlayer(playerToBan.getUniqueId(), ((ProxiedPlayer) sender).getUniqueId(), "Werbung", TimeUnit.DAYS.toMillis(10));
-                            ProxyServer.getInstance().getPlayer(playerToBan.getUniqueId()).disconnect();
-                            sender.sendMessage(BungeeHelper.prefix + "§aSpieler wegen §cWERBUNG §agebannt!");
-                            break;
-                        case 4:
-                            BanAPI.banPlayer(playerToBan.getUniqueId(), ((ProxiedPlayer) sender).getUniqueId(), "Trolling", TimeUnit.DAYS.toMillis(8));
-                            ProxyServer.getInstance().getPlayer(playerToBan.getUniqueId()).disconnect();
-                            sender.sendMessage(BungeeHelper.prefix + "§aSpieler wegen §cTROLLING §agebannt!");
-                            break;
-                        case 5:
-                            BanAPI.banPlayer(playerToBan.getUniqueId(), ((ProxiedPlayer) sender).getUniqueId(), "Bugusing", TimeUnit.DAYS.toMillis(5));
-                            ProxyServer.getInstance().getPlayer(playerToBan.getUniqueId()).disconnect();
-                            sender.sendMessage(BungeeHelper.prefix + "§aSpieler wegen §cBUGUSING §agebannt!");
-                            break;
-                        case 6:
-                            BanAPI.banPlayer(playerToBan.getUniqueId(), ((ProxiedPlayer) sender).getUniqueId(), "SupKick", TimeUnit.DAYS.toMillis(2));
-                            ProxyServer.getInstance().getPlayer(playerToBan.getUniqueId()).disconnect();
-                            sender.sendMessage(BungeeHelper.prefix + "§aSpieler wegen §cSUPERKICK §agebannt!");
-                            break;
-                        case 7:
-                            BanAPI.banPlayer(playerToBan.getUniqueId(), ((ProxiedPlayer) sender).getUniqueId(), "Verhalten", TimeUnit.DAYS.toMillis(5));
-                            ProxyServer.getInstance().getPlayer(playerToBan.getUniqueId()).disconnect();
-                            sender.sendMessage(BungeeHelper.prefix + "§aSpieler wegen §cVERHALTEN §agebannt!");
-                            break;
-                        case 8:
-                            BanAPI.banPlayer(playerToBan.getUniqueId(), ((ProxiedPlayer) sender).getUniqueId(), "Drohung", TimeUnit.DAYS.toMillis(10));
-                            ProxyServer.getInstance().getPlayer(playerToBan.getUniqueId()).disconnect();
-                            sender.sendMessage(BungeeHelper.prefix + "§aSpieler wegen §cDROHUNG §agebannt!");
-                            break;
-                        case 9:
-                            BanAPI.banPlayer(playerToBan.getUniqueId(), ((ProxiedPlayer) sender).getUniqueId(), "Teaming", TimeUnit.DAYS.toMillis(10));
-                            ProxyServer.getInstance().getPlayer(playerToBan.getUniqueId()).disconnect();
-                            sender.sendMessage(BungeeHelper.prefix + "§aSpieler wegen §cTEAMING §agebannt!");
-                            break;
-                        case 10:
-                            BanAPI.banPlayer(playerToBan.getUniqueId(), ((ProxiedPlayer) sender).getUniqueId(), "Spawntrapping", TimeUnit.DAYS.toMillis(8));
-                            ProxyServer.getInstance().getPlayer(playerToBan.getUniqueId()).disconnect();
-                            sender.sendMessage(BungeeHelper.prefix + "§aSpieler wegen §cSPAWNTRAPPING §agebannt!");
-                            break;
-                        case 11:
-                            BanAPI.banPlayer(playerToBan.getUniqueId(), ((ProxiedPlayer) sender).getUniqueId(), "Skin", TimeUnit.DAYS.toMillis(5));
-                            ProxyServer.getInstance().getPlayer(playerToBan.getUniqueId()).disconnect();
-                            sender.sendMessage(BungeeHelper.prefix + "§aSpieler wegen §cSKIN §agebannt!");
-                            break;
-                        case 12:
-                            BanAPI.banPlayer(playerToBan.getUniqueId(), ((ProxiedPlayer) sender).getUniqueId(), "Username", TimeUnit.DAYS.toMillis(5));
-                            ProxyServer.getInstance().getPlayer(playerToBan.getUniqueId()).disconnect();
-                            sender.sendMessage(BungeeHelper.prefix + "§aSpieler wegen §cUSERNAME §agebannt!");
-                            break;
-                        case 13:
-                            BanAPI.banPlayer(playerToBan.getUniqueId(), ((ProxiedPlayer) sender).getUniqueId(), "Spamming", TimeUnit.DAYS.toMillis(5));
-                            ProxyServer.getInstance().getPlayer(playerToBan.getUniqueId()).disconnect();
-                            sender.sendMessage(BungeeHelper.prefix + "§aSpieler wegen §cSPAM §agebannt!");
-                            break;
-                        case 14:
-                            BanAPI.banPlayer(playerToBan.getUniqueId(), ((ProxiedPlayer) sender).getUniqueId(), "Extrem");
-                            ProxyServer.getInstance().getPlayer(playerToBan.getUniqueId()).disconnect();
-                            sender.sendMessage(BungeeHelper.prefix + "§aSpieler wegen §cEXTREM §agebannt!");
-                            break;
-                        default:
-                            sender.sendMessage(BungeeHelper.prefix + "§cUngültige ReasonID. Nutze /ban um die Gründe zu sehen.");
-                            break;
+                    if(ProxyServer.getInstance().getPlayer(args[0]) != null) {
+                        Integer banID = Integer.parseInt(args[1]);
+                        UUID playerToBan = ProxyServer.getInstance().getPlayer(args[0]).getUniqueId();
+
+
+                        switch (banID) {
+                            case 1:
+                                BanAPI.banPlayer(playerToBan, ((ProxiedPlayer) sender).getUniqueId(), "Hacking", TimeUnit.DAYS.toMillis(30));
+                                try{
+                                    ProxyServer.getInstance().getPlayer(playerToBan).disconnect();
+                                } catch(Exception e) {
+                                }
+                                sender.sendMessage(BungeeHelper.prefix + "§aSpieler wegen §cHACKING §agebannt!");
+                                break;
+                            case 2:
+                                BanAPI.banPlayer(playerToBan, ((ProxiedPlayer) sender).getUniqueId(), "Beleidigung", TimeUnit.DAYS.toMillis(15));
+                                try{
+                                    ProxyServer.getInstance().getPlayer(playerToBan).disconnect();
+                                } catch(Exception e) {
+                                }
+                                sender.sendMessage(BungeeHelper.prefix + "§aSpieler wegen §cBELEIDIGUNG §agebannt!");
+                                break;
+                            case 3:
+                                BanAPI.banPlayer(playerToBan, ((ProxiedPlayer) sender).getUniqueId(), "Werbung", TimeUnit.DAYS.toMillis(10));
+                                try{
+                                    ProxyServer.getInstance().getPlayer(playerToBan).disconnect();
+                                } catch(Exception e) {
+                                }
+                                sender.sendMessage(BungeeHelper.prefix + "§aSpieler wegen §cWERBUNG §agebannt!");
+                                break;
+                            case 4:
+                                BanAPI.banPlayer(playerToBan, ((ProxiedPlayer) sender).getUniqueId(), "Trolling", TimeUnit.DAYS.toMillis(8));
+                                try{
+                                    ProxyServer.getInstance().getPlayer(playerToBan).disconnect();
+                                } catch(Exception e) {
+                                }
+                                sender.sendMessage(BungeeHelper.prefix + "§aSpieler wegen §cTROLLING §agebannt!");
+                                break;
+                            case 5:
+                                BanAPI.banPlayer(playerToBan, ((ProxiedPlayer) sender).getUniqueId(), "Bugusing", TimeUnit.DAYS.toMillis(5));
+                                try{
+                                    ProxyServer.getInstance().getPlayer(playerToBan).disconnect();
+                                } catch(Exception e) {
+                                }
+                                sender.sendMessage(BungeeHelper.prefix + "§aSpieler wegen §cBUGUSING §agebannt!");
+                                break;
+                            case 6:
+                                BanAPI.banPlayer(playerToBan, ((ProxiedPlayer) sender).getUniqueId(), "SupKick", TimeUnit.DAYS.toMillis(2));
+                                try{
+                                    ProxyServer.getInstance().getPlayer(playerToBan).disconnect();
+                                } catch(Exception e) {
+                                }
+                                sender.sendMessage(BungeeHelper.prefix + "§aSpieler wegen §cSUPERKICK §agebannt!");
+                                break;
+                            case 7:
+                                BanAPI.banPlayer(playerToBan, ((ProxiedPlayer) sender).getUniqueId(), "Verhalten", TimeUnit.DAYS.toMillis(5));
+                                try{
+                                    ProxyServer.getInstance().getPlayer(playerToBan).disconnect();
+                                } catch(Exception e) {
+                                }
+                                sender.sendMessage(BungeeHelper.prefix + "§aSpieler wegen §cVERHALTEN §agebannt!");
+                                break;
+                            case 8:
+                                BanAPI.banPlayer(playerToBan, ((ProxiedPlayer) sender).getUniqueId(), "Drohung", TimeUnit.DAYS.toMillis(10));
+                                try{
+                                    ProxyServer.getInstance().getPlayer(playerToBan).disconnect();
+                                } catch(Exception e) {
+                                }
+                                sender.sendMessage(BungeeHelper.prefix + "§aSpieler wegen §cDROHUNG §agebannt!");
+                                break;
+                            case 9:
+                                BanAPI.banPlayer(playerToBan, ((ProxiedPlayer) sender).getUniqueId(), "Teaming", TimeUnit.DAYS.toMillis(10));
+                                try{
+                                    ProxyServer.getInstance().getPlayer(playerToBan).disconnect();
+                                } catch(Exception e) {
+                                }
+                                sender.sendMessage(BungeeHelper.prefix + "§aSpieler wegen §cTEAMING §agebannt!");
+                                break;
+                            case 10:
+                                BanAPI.banPlayer(playerToBan, ((ProxiedPlayer) sender).getUniqueId(), "Spawntrapping", TimeUnit.DAYS.toMillis(8));
+                                try{
+                                    ProxyServer.getInstance().getPlayer(playerToBan).disconnect();
+                                } catch(Exception e) {
+                                }
+                                sender.sendMessage(BungeeHelper.prefix + "§aSpieler wegen §cSPAWNTRAPPING §agebannt!");
+                                break;
+                            case 11:
+                                BanAPI.banPlayer(playerToBan, ((ProxiedPlayer) sender).getUniqueId(), "Skin", TimeUnit.DAYS.toMillis(5));
+                                try{
+                                    ProxyServer.getInstance().getPlayer(playerToBan).disconnect();
+                                } catch(Exception e) {
+                                }
+                                sender.sendMessage(BungeeHelper.prefix + "§aSpieler wegen §cSKIN §agebannt!");
+                                break;
+                            case 12:
+                                BanAPI.banPlayer(playerToBan, ((ProxiedPlayer) sender).getUniqueId(), "Username", TimeUnit.DAYS.toMillis(5));
+                                try{
+                                    ProxyServer.getInstance().getPlayer(playerToBan).disconnect();
+                                } catch(Exception e) {
+                                }
+                                sender.sendMessage(BungeeHelper.prefix + "§aSpieler wegen §cUSERNAME §agebannt!");
+                                break;
+                            case 13:
+                                BanAPI.banPlayer(playerToBan, ((ProxiedPlayer) sender).getUniqueId(), "Spamming", TimeUnit.DAYS.toMillis(5));
+                                try{
+                                    ProxyServer.getInstance().getPlayer(playerToBan).disconnect();
+                                } catch(Exception e) {
+                                }
+                                sender.sendMessage(BungeeHelper.prefix + "§aSpieler wegen §cSPAM §agebannt!");
+                                break;
+                            case 14:
+                                BanAPI.banPlayer(playerToBan, ((ProxiedPlayer) sender).getUniqueId(), "Extrem");
+
+                                try{
+                                    ProxyServer.getInstance().getPlayer(playerToBan).disconnect();
+                                } catch(Exception e) {
+                                }
+
+                                sender.sendMessage(BungeeHelper.prefix + "§aSpieler wegen §cEXTREM §agebannt!");
+                                break;
+                            default:
+                                sender.sendMessage(BungeeHelper.prefix + "§cUngültige ReasonID. Nutze /ban um die Gründe zu sehen.");
+                                break;
+                        }
+                        break;
+                    } else {
+                        sender.sendMessage(BungeeHelper.prefix + "§cSpieler konnte nicht gefunden werden!");
                     }
-                    break;
+
             }
         } else {
             sender.sendMessage(BungeeHelper.noperm);
