@@ -1,10 +1,9 @@
 package main;
 
-import API.BanAPI;
-import API.OfflineUniqueID;
 import Listener.ChatListener;
 import Listener.LoginListener;
-import REST.RequestHandler;
+import REST.PlayerListRequestHandler;
+import REST.PlayerOnlineRequestHandler;
 import bansystem.BanCMDs;
 import bansystem.unbanByUIDCMD;
 import bansystem.unbanCMD;
@@ -15,7 +14,6 @@ import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Plugin;
 
 import java.net.InetSocketAddress;
-import java.util.UUID;
 
 public class BungeeHelper extends Plugin {
 
@@ -39,9 +37,6 @@ public class BungeeHelper extends Plugin {
         getLogger().info(ChatColor.LIGHT_PURPLE +        "+-        by Mayus         -+");
         getLogger().info(ChatColor.BLUE +                "+-                         -+");
         getLogger().info(ChatColor.BLUE +                "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
-
-        getLogger().info(BanAPI.isBanned(UUID.fromString(OfflineUniqueID.getOfflineUUID("FrecherBruder"))).toString());
-        getLogger().info(OfflineUniqueID.getOfflineUUID("FrecherBruder"));
     }
 
     @Override
@@ -70,7 +65,8 @@ public class BungeeHelper extends Plugin {
         HttpServer server = null;
         try {
             server = HttpServer.create(new InetSocketAddress(8000), 0);
-            server.createContext("/isplayeronline", new RequestHandler());
+            server.createContext("/isplayeronline", new PlayerOnlineRequestHandler());
+            server.createContext("/playerlist", new PlayerListRequestHandler());
             server.setExecutor(null); // creates a default executor
             server.start();
         } catch (Exception e) {

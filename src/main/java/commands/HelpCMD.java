@@ -18,9 +18,9 @@ public class HelpCMD extends Command {
     public void execute(CommandSender commandSender, String[] args) {
         ProxiedPlayer p = (ProxiedPlayer) commandSender;
         if(args.length > 0) {
-            String msg = "";
+            StringBuilder msg = new StringBuilder();
             for(int i = 0; i < args.length ; i++) {
-                    msg = msg + " " + args[i];
+                    msg.append(" ").append(args[i]);
 
             }
             for(ProxiedPlayer pp : ProxyServer.getInstance().getPlayers()) {

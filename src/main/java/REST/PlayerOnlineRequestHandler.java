@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Map;
 
-public class RequestHandler implements HttpHandler {
+public class PlayerOnlineRequestHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange t) throws IOException {
 

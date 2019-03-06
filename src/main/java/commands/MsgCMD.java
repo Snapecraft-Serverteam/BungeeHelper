@@ -22,22 +22,18 @@ public class MsgCMD extends Command {
 
                 ProxiedPlayer rec = ProxyServer.getInstance().getPlayer(args[0]);
 
-                String msg = "";
+                StringBuilder msg = new StringBuilder();
                 for(int i = 1; i < args.length ; i++) {
                     if(i > 1) {
-                        msg = msg + " " + args[i];
+                        msg.append(" ").append(args[i]);
                     } else {
-                        msg = args[i];
+                        msg = new StringBuilder(args[i]);
                     }
                 }
 
                 p.sendMessage("[§aDu§r] §5> §r[§6" + rec.getDisplayName() + "§r]: " + msg);
                 rec.sendMessage("[§6" + p.getName() + "§r] §5> §r[§aDu§r]: " + msg);
-
             }
-
         }
     }
-
-
 }
