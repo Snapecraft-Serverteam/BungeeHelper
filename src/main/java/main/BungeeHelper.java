@@ -12,8 +12,15 @@ import commands.*;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Plugin;
+import net.md_5.bungee.config.Configuration;
+import net.md_5.bungee.config.ConfigurationProvider;
+import net.md_5.bungee.config.YamlConfiguration;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.InetSocketAddress;
+import java.nio.file.Files;
 
 public class BungeeHelper extends Plugin {
 
@@ -23,6 +30,7 @@ public class BungeeHelper extends Plugin {
     public static String prefix = "§7[§3System§7]§5 > §r";
     public static String noperm = prefix + "§cDu hast nicht die nötige Berechtigung, um diesen Befehl auszuführen";
     public static BungeeHelper plugin;
+    public static Configuration configuration;
 
     @Override
     public void onEnable() {
@@ -46,6 +54,7 @@ public class BungeeHelper extends Plugin {
 
     public void init() {
 
+        initConfig();
 
         //COMMANDS
         ProxyServer.getInstance().getPluginManager().registerCommand(this, new PingCMD());
@@ -62,14 +71,55 @@ public class BungeeHelper extends Plugin {
 
 
         //Starting the REST API webserver
-        HttpServer server = null;
+        if(configuration.getBoolean("restapi.enabled")) {
+            HttpServer server = null;
+            try {
+                server = HttpServer.create(new InetSocketAddress(8000), 0);
+                server.createContext("/isplayeronline", new PlayerOnlineRequestHandler());
+                server.createContext("/playerlist", new PlayerListRequestHandler());
+                server.setExecutor(null); // creates a default executor
+                server.start();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    private void initConfig() {
+
+        // Use config template if no config is present
+        if (!getDataFolder().exists())
+            getDataFolder().mkdir();
+        File file = new File(getDataFolder(), "config.yml");
+        if (!file.exists()) {
+            try (InputStream in = getResourceAsStream("config.yml")) {
+                Files.copy(in, file.toPath());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
         try {
-            server = HttpServer.create(new InetSocketAddress(8000), 0);
-            server.createContext("/isplayeronline", new PlayerOnlineRequestHandler());
-            server.createContext("/playerlist", new PlayerListRequestHandler());
-            server.setExecutor(null); // creates a default executor
-            server.start();
-        } catch (Exception e) {
+            configuration = ConfigurationProvider.getProvider(YamlConfiguration.class).load(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void reloadConfig() {
+        File file = new File(BungeeHelper.getInstance().getDataFolder(), "config.yml");
+        try {
+            configuration = ConfigurationProvider.getProvider(YamlConfiguration.class).load(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void saveConfig() {
+        try {
+            ConfigurationProvider.getProvider(YamlConfiguration.class).save(configuration, new File(BungeeHelper.getInstance().getDataFolder(), "config.yml"));
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
