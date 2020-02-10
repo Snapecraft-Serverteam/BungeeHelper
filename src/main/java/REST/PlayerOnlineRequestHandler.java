@@ -24,6 +24,7 @@ public class PlayerOnlineRequestHandler implements HttpHandler {
                 api.put("server", ProxyServer.getInstance().getPlayer(params.get("player")).getServer().getInfo().getName());
 
                 String response = api.toJSONString();
+                t.getResponseHeaders().set("Content-Type", "application/json; charset=utf-8");
                 t.sendResponseHeaders(200, response.length());
                 OutputStream os = t.getResponseBody();
                 os.write(response.getBytes());
@@ -34,6 +35,7 @@ public class PlayerOnlineRequestHandler implements HttpHandler {
                 api.put("server", null);
 
                 String response = api.toJSONString();
+                t.getResponseHeaders().set("Content-Type", "application/json; charset=utf-8");
                 t.sendResponseHeaders(200, response.length());
                 OutputStream os = t.getResponseBody();
                 os.write(response.getBytes());
@@ -43,6 +45,7 @@ public class PlayerOnlineRequestHandler implements HttpHandler {
 
         } else {
             String response = "<h1 style='font-family: sans-serif;'>You have to specify the player you want to query!</h1> <br> Please add the GET parameter 'player=' along with the player's name.";
+            t.getResponseHeaders().set("Content-Type", "text/html; charset=utf-8");
             t.sendResponseHeaders(200, response.length());
             OutputStream os = t.getResponseBody();
             os.write(response.getBytes());
