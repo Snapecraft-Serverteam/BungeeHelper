@@ -41,7 +41,7 @@ public class BungeeHelper extends Plugin {
     private void logInfo() {
         getLogger().info(ChatColor.BLUE +                "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
         getLogger().info(ChatColor.BLUE +                "+-                         -+");
-        getLogger().info(ChatColor.YELLOW +              "+-   main.BungeeHelper v.1.0    -+");
+        getLogger().info(ChatColor.YELLOW +              "+-   BungeeHelper v.1.0    -+");
         getLogger().info(ChatColor.LIGHT_PURPLE +        "+-        by Mayus         -+");
         getLogger().info(ChatColor.BLUE +                "+-                         -+");
         getLogger().info(ChatColor.BLUE +                "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
