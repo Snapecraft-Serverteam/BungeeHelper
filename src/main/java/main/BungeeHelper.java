@@ -1,13 +1,12 @@
 package main;
 
-import bansystem.WarnCMD;
-import listener.ChatListener;
-import listener.LoginListener;
-import rest.PlayerListRequestHandler;
-import rest.PlayerOnlineRequestHandler;
-import bansystem.BanCMD;
-import bansystem.UnbanByUIDCMD;
-import bansystem.UnbanCMD;
+import Listener.ChatListener;
+import Listener.LoginListener;
+import REST.PlayerListRequestHandler;
+import REST.PlayerOnlineRequestHandler;
+import bansystem.BanCMDs;
+import bansystem.unbanByUIDCMD;
+import bansystem.unbanCMD;
 import com.sun.net.httpserver.HttpServer;
 import commands.*;
 import net.md_5.bungee.api.ChatColor;
@@ -47,31 +46,72 @@ public class BungeeHelper extends Plugin {
 
     public void init() {
 
+        initConfig();
 
         //COMMANDS
         ProxyServer.getInstance().getPluginManager().registerCommand(this, new PingCMD());
         ProxyServer.getInstance().getPluginManager().registerCommand(this, new MsgCMD());
         ProxyServer.getInstance().getPluginManager().registerCommand(this, new HelpCMD());
         ProxyServer.getInstance().getPluginManager().registerCommand(this, new SpectateCMD());
-        ProxyServer.getInstance().getPluginManager().registerCommand(this, new BanCMD());
-        ProxyServer.getInstance().getPluginManager().registerCommand(this, new UnbanByUIDCMD());
-        ProxyServer.getInstance().getPluginManager().registerCommand(this, new UnbanCMD());
-        ProxyServer.getInstance().getPluginManager().registerCommand(this, new WarnCMD());
+        ProxyServer.getInstance().getPluginManager().registerCommand(this, new BanCMDs());
+        ProxyServer.getInstance().getPluginManager().registerCommand(this, new unbanByUIDCMD());
+        ProxyServer.getInstance().getPluginManager().registerCommand(this, new unbanCMD());
         ProxyServer.getInstance().getPluginManager().registerCommand(this, new BroadcastCMD());
         //EVENTS
         ProxyServer.getInstance().getPluginManager().registerListener(this, new LoginListener());
         ProxyServer.getInstance().getPluginManager().registerListener(this, new ChatListener());
 
 
-        //Starting the rest api webserver
-        HttpServer server = null;
+        //Starting the REST API webserver
+        if(configuration.getBoolean("restapi.enabled")) {
+            HttpServer server = null;
+            try {
+                server = HttpServer.create(new InetSocketAddress(8000), 0);
+                server.createContext("/isplayeronline", new PlayerOnlineRequestHandler());
+                server.createContext("/playerlist", new PlayerListRequestHandler());
+                server.setExecutor(null); // creates a default executor
+                server.start();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    private void initConfig() {
+
+        // Use config template if no config is present
+        if (!getDataFolder().exists())
+            getDataFolder().mkdir();
+        File file = new File(getDataFolder(), "config.yml");
+        if (!file.exists()) {
+            try (InputStream in = getResourceAsStream("config.yml")) {
+                Files.copy(in, file.toPath());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
         try {
-            server = HttpServer.create(new InetSocketAddress(8000), 0);
-            server.createContext("/isplayeronline", new PlayerOnlineRequestHandler());
-            server.createContext("/playerlist", new PlayerListRequestHandler());
-            server.setExecutor(null); // creates a default executor
-            server.start();
-        } catch (Exception e) {
+            configuration = ConfigurationProvider.getProvider(YamlConfiguration.class).load(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void reloadConfig() {
+        File file = new File(BungeeHelper.getInstance().getDataFolder(), "config.yml");
+        try {
+            configuration = ConfigurationProvider.getProvider(YamlConfiguration.class).load(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void saveConfig() {
+        try {
+            ConfigurationProvider.getProvider(YamlConfiguration.class).save(configuration, new File(BungeeHelper.getInstance().getDataFolder(), "config.yml"));
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

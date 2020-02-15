@@ -11,7 +11,7 @@ import net.md_5.bungee.api.plugin.Command;
 public class HelpCMD extends Command {
 
     public HelpCMD() {
-        super("help");
+        super("helpme");
     }
 
     @Override

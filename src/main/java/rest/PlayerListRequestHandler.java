@@ -27,6 +27,7 @@ public class PlayerListRequestHandler implements HttpHandler {
         }
 
         String response = api.toJSONString();
+        t.getResponseHeaders().set("Content-Type", "application/json; charset=utf-8");
         t.sendResponseHeaders(200, response.length());
         OutputStream os = t.getResponseBody();
         os.write(response.getBytes());
