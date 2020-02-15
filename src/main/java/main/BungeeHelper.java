@@ -1,19 +1,26 @@
 package main;
 
-import Listener.ChatListener;
-import Listener.LoginListener;
-import REST.PlayerListRequestHandler;
-import REST.PlayerOnlineRequestHandler;
-import bansystem.BanCMDs;
-import bansystem.unbanByUIDCMD;
-import bansystem.unbanCMD;
+import listener.ChatListener;
+import listener.LoginListener;
+import net.md_5.bungee.config.Configuration;
+import net.md_5.bungee.config.ConfigurationProvider;
+import net.md_5.bungee.config.YamlConfiguration;
+import rest.PlayerListRequestHandler;
+import rest.PlayerOnlineRequestHandler;
+import bansystem.BanCMD;
+import bansystem.UnbanByUIDCMD;
+import bansystem.UnbanCMD;
 import com.sun.net.httpserver.HttpServer;
 import commands.*;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Plugin;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.InetSocketAddress;
+import java.nio.file.Files;
 
 public class BungeeHelper extends Plugin {
 
@@ -23,6 +30,7 @@ public class BungeeHelper extends Plugin {
     public static String prefix = "§7[§3System§7]§5 > §r";
     public static String noperm = prefix + "§cDu hast nicht die nötige Berechtigung, um diesen Befehl auszuführen";
     public static BungeeHelper plugin;
+    public static Configuration configuration;
 
     @Override
     public void onEnable() {
@@ -53,9 +61,9 @@ public class BungeeHelper extends Plugin {
         ProxyServer.getInstance().getPluginManager().registerCommand(this, new MsgCMD());
         ProxyServer.getInstance().getPluginManager().registerCommand(this, new HelpCMD());
         ProxyServer.getInstance().getPluginManager().registerCommand(this, new SpectateCMD());
-        ProxyServer.getInstance().getPluginManager().registerCommand(this, new BanCMDs());
-        ProxyServer.getInstance().getPluginManager().registerCommand(this, new unbanByUIDCMD());
-        ProxyServer.getInstance().getPluginManager().registerCommand(this, new unbanCMD());
+        ProxyServer.getInstance().getPluginManager().registerCommand(this, new BanCMD());
+        ProxyServer.getInstance().getPluginManager().registerCommand(this, new UnbanByUIDCMD());
+        ProxyServer.getInstance().getPluginManager().registerCommand(this, new UnbanCMD());
         ProxyServer.getInstance().getPluginManager().registerCommand(this, new BroadcastCMD());
         //EVENTS
         ProxyServer.getInstance().getPluginManager().registerListener(this, new LoginListener());
@@ -114,6 +122,9 @@ public class BungeeHelper extends Plugin {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    public Configuration getConfiguration() {
+        return configuration;
     }
 }
 

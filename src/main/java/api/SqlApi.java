@@ -1,5 +1,7 @@
 package api;
 
+import main.BungeeHelper;
+
 import java.sql.*;
 
 public class SqlApi {
@@ -10,10 +12,13 @@ public class SqlApi {
      * @param query the query String
      */
     public static void executeSQL(String query) {
-        String url = "jdbc:mysql://localhost:3306/bans?useSSL=false";
-        String user = "banUser";
-        String password = "v5PUz845fRqqXRy";
+        String host = BungeeHelper.getInstance().getConfiguration().getString("mysql.host");
+        int port = BungeeHelper.getInstance().getConfiguration().getInt("mysql.port");;
+        String user = BungeeHelper.getInstance().getConfiguration().getString("mysql.user");
+        String password = BungeeHelper.getInstance().getConfiguration().getString("mysql.pw");
+        String db = BungeeHelper.getInstance().getConfiguration().getString("mysql.db");
 
+        String url = "jdbc:mysql://" + host + ":" + port + "/" + db +"?useSSL=false";
         try {
             Connection con = DriverManager.getConnection(url, user, password);
             Statement st = con.createStatement();
@@ -32,10 +37,13 @@ public class SqlApi {
      */
     public static String executeQuery(String query) {
 
-        String url = "jdbc:mysql://localhost:3306/bans?useSSL=false";
-        String user = "banUser";
-        String password = "v5PUz845fRqqXRy";
+        String host = BungeeHelper.getInstance().getConfiguration().getString("mysql.host");
+        int port = BungeeHelper.getInstance().getConfiguration().getInt("mysql.port");;
+        String user = BungeeHelper.getInstance().getConfiguration().getString("mysql.user");
+        String password = BungeeHelper.getInstance().getConfiguration().getString("mysql.pw");
+        String db = BungeeHelper.getInstance().getConfiguration().getString("mysql.db");
 
+        String url = "jdbc:mysql://" + host + ":" + port + "/" + db +"?useSSL=false";
         try (Connection con = DriverManager.getConnection(url, user, password);
              Statement st = con.createStatement();
              ResultSet rs = st.executeQuery(query)) {
