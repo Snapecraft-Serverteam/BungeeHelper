@@ -1,6 +1,6 @@
-package Listener;
+package listener;
 
-import API.BanAPI;
+import api.BanAPI;
 import net.md_5.bungee.api.event.LoginEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;

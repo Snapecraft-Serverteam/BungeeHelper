@@ -1,4 +1,4 @@
-package REST;
+package api;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,5 +18,14 @@ public class Util {
             return result;
         }
         return null;
+    }
+
+    public static boolean isNumeric(String str) {
+        try {
+            Double.parseDouble(str);
+            return true;
+        } catch(NumberFormatException e){
+            return false;
+        }
     }
 }

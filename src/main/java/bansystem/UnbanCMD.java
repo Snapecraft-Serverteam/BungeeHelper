@@ -1,16 +1,16 @@
 package bansystem;
 
-import API.BanAPI;
-import API.OfflineUniqueID;
+import api.BanAPI;
+import api.OfflineUniqueID;
 import main.BungeeHelper;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.plugin.Command;
 
 import java.util.UUID;
 
-public class unbanCMD extends Command {
+public class UnbanCMD extends Command {
 
-    public unbanCMD() {
+    public UnbanCMD() {
         super("unban");
     }
 

@@ -1,4 +1,4 @@
-package API;
+package api;
 
 
 import com.google.common.base.Charsets;

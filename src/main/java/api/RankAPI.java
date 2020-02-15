@@ -1,8 +1,4 @@
-package API;
-
-import de.dytanic.cloudnet.api.CloudAPI;
-import de.dytanic.cloudnet.lib.player.permission.GroupEntityData;
-import net.md_5.bungee.api.connection.ProxiedPlayer;
+package api;
 
 public class RankAPI {
     /*

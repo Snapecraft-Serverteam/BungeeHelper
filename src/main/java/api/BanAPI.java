@@ -1,6 +1,5 @@
-package API;
+package api;
 
-import MySQL.SqlApi;
 import net.md_5.bungee.api.ProxyServer;
 
 import java.util.UUID;
@@ -12,11 +11,13 @@ public class BanAPI {
     }
 
     public static void banPlayer(UUID uuid, UUID executor, String reason, Long banDuration) {
-
         SqlApi.executeSQL("INSERT into bannedplayers (uuid, bannedBy, bannedSince, bannedUntil, banReason, lastname, lastExecName) VALUES ('" + uuid.toString() + "', '" + executor.toString() + "', '" + System.currentTimeMillis() + "', " + (System.currentTimeMillis() + banDuration) + ", '" + reason + "', '" + ProxyServer.getInstance().getPlayer(uuid).getName() + "', '" + ProxyServer.getInstance().getPlayer(executor).getName() + "')");
-
-
     }
+
+    public static void banPlayerAnonymously(UUID uuid, UUID executor, String reason, Long banDuration) {
+        SqlApi.executeSQL("INSERT into bannedplayers (uuid, bannedBy, bannedSince, bannedUntil, banReason, lastname, lastExecName) VALUES ('" + uuid.toString() + "', '" + executor.toString() + "', '" + System.currentTimeMillis() + "', " + (System.currentTimeMillis() + banDuration) + ", '" + reason + "', '" + ProxyServer.getInstance().getPlayer(uuid).getName() + "', 'System')");
+    }
+
 
     public static void unbanPlayer(UUID p) {
           SqlApi.executeSQL("delete from bannedplayers\n" +

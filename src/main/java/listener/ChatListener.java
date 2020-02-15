@@ -1,4 +1,4 @@
-package Listener;
+package listener;
 
 import de.dytanic.cloudnet.api.player.PermissionProvider;
 import de.dytanic.cloudnet.lib.player.OfflinePlayer;

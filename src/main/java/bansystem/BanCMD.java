@@ -1,6 +1,6 @@
 package bansystem;
 
-import API.BanAPI;
+import api.BanAPI;
 import main.BungeeHelper;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
@@ -10,12 +10,14 @@ import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-public class BanCMDs extends Command {
+public class BanCMD extends Command {
 
-    public BanCMDs() {
+    public BanCMD() {
         super("ban");
     }
 
@@ -77,12 +79,15 @@ public class BanCMDs extends Command {
                         Integer banID = Integer.parseInt(args[1]);
                         UUID playerToBan = ProxyServer.getInstance().getPlayer(args[0]).getUniqueId();
 
+                        List<UUID> ownerList = new ArrayList<>();
+                        ownerList.add(UUID.fromString("6da21308-6b8f-43a9-98d1-2831ab778511"));
+                        ownerList.add(UUID.fromString("900bf5ae-3f2f-4594-8250-1871d6aec064"));
 
                         switch (banID) {
                             case 1:
                                 BanAPI.banPlayer(playerToBan, ((ProxiedPlayer) sender).getUniqueId(), "Hacking", TimeUnit.DAYS.toMillis(30));
                                 try{
-                                    ProxyServer.getInstance().getPlayer(playerToBan).disconnect();
+                                    ProxyServer.getInstance().getPlayer(playerToBan).disconnect(new TextComponent("\n§c§lSnapecraft \n§7 \n§8------------------------------ \n§7Du wurdest vom §bServernetzwerk §7gebannt. \n §7Grund: §c" + BanAPI.getReason(playerToBan) + "  §7#" + BanAPI.getBanID(playerToBan) + " \n \n §7Verbleibende Zeit: §c  \n" + BanAPI.getRemainingBanTime(playerToBan) + "\n \n §7Stelle einen §cEntbannungsantrag§7 im Forum: \n §eforum.snapecraft.net \n§8------------------------------"));
                                 } catch(Exception e) {
                                 }
                                 sender.sendMessage(BungeeHelper.prefix + "§aSpieler wegen §cHACKING §agebannt!");
@@ -90,7 +95,7 @@ public class BanCMDs extends Command {
                             case 2:
                                 BanAPI.banPlayer(playerToBan, ((ProxiedPlayer) sender).getUniqueId(), "Beleidigung", TimeUnit.DAYS.toMillis(15));
                                 try{
-                                    ProxyServer.getInstance().getPlayer(playerToBan).disconnect();
+                                    ProxyServer.getInstance().getPlayer(playerToBan).disconnect(new TextComponent("\n§c§lSnapecraft \n§7 \n§8------------------------------ \n§7Du wurdest vom §bServernetzwerk §7gebannt. \n §7Grund: §c" + BanAPI.getReason(playerToBan) + "  §7#" + BanAPI.getBanID(playerToBan) + " \n \n §7Verbleibende Zeit: §c  \n" + BanAPI.getRemainingBanTime(playerToBan) + "\n \n §7Stelle einen §cEntbannungsantrag§7 im Forum: \n §eforum.snapecraft.net \n§8------------------------------"));
                                 } catch(Exception e) {
                                 }
                                 sender.sendMessage(BungeeHelper.prefix + "§aSpieler wegen §cBELEIDIGUNG §agebannt!");
@@ -98,7 +103,7 @@ public class BanCMDs extends Command {
                             case 3:
                                 BanAPI.banPlayer(playerToBan, ((ProxiedPlayer) sender).getUniqueId(), "Werbung", TimeUnit.DAYS.toMillis(10));
                                 try{
-                                    ProxyServer.getInstance().getPlayer(playerToBan).disconnect();
+                                    ProxyServer.getInstance().getPlayer(playerToBan).disconnect(new TextComponent("\n§c§lSnapecraft \n§7 \n§8------------------------------ \n§7Du wurdest vom §bServernetzwerk §7gebannt. \n §7Grund: §c" + BanAPI.getReason(playerToBan) + "  §7#" + BanAPI.getBanID(playerToBan) + " \n \n §7Verbleibende Zeit: §c  \n" + BanAPI.getRemainingBanTime(playerToBan) + "\n \n §7Stelle einen §cEntbannungsantrag§7 im Forum: \n §eforum.snapecraft.net \n§8------------------------------"));
                                 } catch(Exception e) {
                                 }
                                 sender.sendMessage(BungeeHelper.prefix + "§aSpieler wegen §cWERBUNG §agebannt!");
@@ -106,7 +111,7 @@ public class BanCMDs extends Command {
                             case 4:
                                 BanAPI.banPlayer(playerToBan, ((ProxiedPlayer) sender).getUniqueId(), "Trolling", TimeUnit.DAYS.toMillis(8));
                                 try{
-                                    ProxyServer.getInstance().getPlayer(playerToBan).disconnect();
+                                    ProxyServer.getInstance().getPlayer(playerToBan).disconnect(new TextComponent("\n§c§lSnapecraft \n§7 \n§8------------------------------ \n§7Du wurdest vom §bServernetzwerk §7gebannt. \n §7Grund: §c" + BanAPI.getReason(playerToBan) + "  §7#" + BanAPI.getBanID(playerToBan) + " \n \n §7Verbleibende Zeit: §c  \n" + BanAPI.getRemainingBanTime(playerToBan) + "\n \n §7Stelle einen §cEntbannungsantrag§7 im Forum: \n §eforum.snapecraft.net \n§8------------------------------"));
                                 } catch(Exception e) {
                                 }
                                 sender.sendMessage(BungeeHelper.prefix + "§aSpieler wegen §cTROLLING §agebannt!");
@@ -114,7 +119,7 @@ public class BanCMDs extends Command {
                             case 5:
                                 BanAPI.banPlayer(playerToBan, ((ProxiedPlayer) sender).getUniqueId(), "Bugusing", TimeUnit.DAYS.toMillis(5));
                                 try{
-                                    ProxyServer.getInstance().getPlayer(playerToBan).disconnect();
+                                    ProxyServer.getInstance().getPlayer(playerToBan).disconnect(new TextComponent("\n§c§lSnapecraft \n§7 \n§8------------------------------ \n§7Du wurdest vom §bServernetzwerk §7gebannt. \n §7Grund: §c" + BanAPI.getReason(playerToBan) + "  §7#" + BanAPI.getBanID(playerToBan) + " \n \n §7Verbleibende Zeit: §c  \n" + BanAPI.getRemainingBanTime(playerToBan) + "\n \n §7Stelle einen §cEntbannungsantrag§7 im Forum: \n §eforum.snapecraft.net \n§8------------------------------"));
                                 } catch(Exception e) {
                                 }
                                 sender.sendMessage(BungeeHelper.prefix + "§aSpieler wegen §cBUGUSING §agebannt!");
@@ -122,7 +127,7 @@ public class BanCMDs extends Command {
                             case 6:
                                 BanAPI.banPlayer(playerToBan, ((ProxiedPlayer) sender).getUniqueId(), "SupKick", TimeUnit.DAYS.toMillis(2));
                                 try{
-                                    ProxyServer.getInstance().getPlayer(playerToBan).disconnect();
+                                    ProxyServer.getInstance().getPlayer(playerToBan).disconnect(new TextComponent("\n§c§lSnapecraft \n§7 \n§8------------------------------ \n§7Du wurdest vom §bServernetzwerk §7gebannt. \n §7Grund: §c" + BanAPI.getReason(playerToBan) + "  §7#" + BanAPI.getBanID(playerToBan) + " \n \n §7Verbleibende Zeit: §c  \n" + BanAPI.getRemainingBanTime(playerToBan) + "\n \n §7Stelle einen §cEntbannungsantrag§7 im Forum: \n §eforum.snapecraft.net \n§8------------------------------"));
                                 } catch(Exception e) {
                                 }
                                 sender.sendMessage(BungeeHelper.prefix + "§aSpieler wegen §cSUPERKICK §agebannt!");
@@ -130,7 +135,7 @@ public class BanCMDs extends Command {
                             case 7:
                                 BanAPI.banPlayer(playerToBan, ((ProxiedPlayer) sender).getUniqueId(), "Verhalten", TimeUnit.DAYS.toMillis(5));
                                 try{
-                                    ProxyServer.getInstance().getPlayer(playerToBan).disconnect();
+                                    ProxyServer.getInstance().getPlayer(playerToBan).disconnect(new TextComponent("\n§c§lSnapecraft \n§7 \n§8------------------------------ \n§7Du wurdest vom §bServernetzwerk §7gebannt. \n §7Grund: §c" + BanAPI.getReason(playerToBan) + "  §7#" + BanAPI.getBanID(playerToBan) + " \n \n §7Verbleibende Zeit: §c  \n" + BanAPI.getRemainingBanTime(playerToBan) + "\n \n §7Stelle einen §cEntbannungsantrag§7 im Forum: \n §eforum.snapecraft.net \n§8------------------------------"));
                                 } catch(Exception e) {
                                 }
                                 sender.sendMessage(BungeeHelper.prefix + "§aSpieler wegen §cVERHALTEN §agebannt!");
@@ -138,7 +143,7 @@ public class BanCMDs extends Command {
                             case 8:
                                 BanAPI.banPlayer(playerToBan, ((ProxiedPlayer) sender).getUniqueId(), "Drohung", TimeUnit.DAYS.toMillis(10));
                                 try{
-                                    ProxyServer.getInstance().getPlayer(playerToBan).disconnect();
+                                    ProxyServer.getInstance().getPlayer(playerToBan).disconnect(new TextComponent("\n§c§lSnapecraft \n§7 \n§8------------------------------ \n§7Du wurdest vom §bServernetzwerk §7gebannt. \n §7Grund: §c" + BanAPI.getReason(playerToBan) + "  §7#" + BanAPI.getBanID(playerToBan) + " \n \n §7Verbleibende Zeit: §c  \n" + BanAPI.getRemainingBanTime(playerToBan) + "\n \n §7Stelle einen §cEntbannungsantrag§7 im Forum: \n §eforum.snapecraft.net \n§8------------------------------"));
                                 } catch(Exception e) {
                                 }
                                 sender.sendMessage(BungeeHelper.prefix + "§aSpieler wegen §cDROHUNG §agebannt!");
@@ -146,7 +151,7 @@ public class BanCMDs extends Command {
                             case 9:
                                 BanAPI.banPlayer(playerToBan, ((ProxiedPlayer) sender).getUniqueId(), "Teaming", TimeUnit.DAYS.toMillis(10));
                                 try{
-                                    ProxyServer.getInstance().getPlayer(playerToBan).disconnect();
+                                    ProxyServer.getInstance().getPlayer(playerToBan).disconnect(new TextComponent("\n§c§lSnapecraft \n§7 \n§8------------------------------ \n§7Du wurdest vom §bServernetzwerk §7gebannt. \n §7Grund: §c" + BanAPI.getReason(playerToBan) + "  §7#" + BanAPI.getBanID(playerToBan) + " \n \n §7Verbleibende Zeit: §c  \n" + BanAPI.getRemainingBanTime(playerToBan) + "\n \n §7Stelle einen §cEntbannungsantrag§7 im Forum: \n §eforum.snapecraft.net \n§8------------------------------"));
                                 } catch(Exception e) {
                                 }
                                 sender.sendMessage(BungeeHelper.prefix + "§aSpieler wegen §cTEAMING §agebannt!");
@@ -154,7 +159,7 @@ public class BanCMDs extends Command {
                             case 10:
                                 BanAPI.banPlayer(playerToBan, ((ProxiedPlayer) sender).getUniqueId(), "Spawntrapping", TimeUnit.DAYS.toMillis(8));
                                 try{
-                                    ProxyServer.getInstance().getPlayer(playerToBan).disconnect();
+                                    ProxyServer.getInstance().getPlayer(playerToBan).disconnect(new TextComponent("\n§c§lSnapecraft \n§7 \n§8------------------------------ \n§7Du wurdest vom §bServernetzwerk §7gebannt. \n §7Grund: §c" + BanAPI.getReason(playerToBan) + "  §7#" + BanAPI.getBanID(playerToBan) + " \n \n §7Verbleibende Zeit: §c  \n" + BanAPI.getRemainingBanTime(playerToBan) + "\n \n §7Stelle einen §cEntbannungsantrag§7 im Forum: \n §eforum.snapecraft.net \n§8------------------------------"));
                                 } catch(Exception e) {
                                 }
                                 sender.sendMessage(BungeeHelper.prefix + "§aSpieler wegen §cSPAWNTRAPPING §agebannt!");
@@ -162,7 +167,7 @@ public class BanCMDs extends Command {
                             case 11:
                                 BanAPI.banPlayer(playerToBan, ((ProxiedPlayer) sender).getUniqueId(), "Skin", TimeUnit.DAYS.toMillis(5));
                                 try{
-                                    ProxyServer.getInstance().getPlayer(playerToBan).disconnect();
+                                    ProxyServer.getInstance().getPlayer(playerToBan).disconnect(new TextComponent("\n§c§lSnapecraft \n§7 \n§8------------------------------ \n§7Du wurdest vom §bServernetzwerk §7gebannt. \n §7Grund: §c" + BanAPI.getReason(playerToBan) + "  §7#" + BanAPI.getBanID(playerToBan) + " \n \n §7Verbleibende Zeit: §c  \n" + BanAPI.getRemainingBanTime(playerToBan) + "\n \n §7Stelle einen §cEntbannungsantrag§7 im Forum: \n §eforum.snapecraft.net \n§8------------------------------"));
                                 } catch(Exception e) {
                                 }
                                 sender.sendMessage(BungeeHelper.prefix + "§aSpieler wegen §cSKIN §agebannt!");
@@ -170,7 +175,7 @@ public class BanCMDs extends Command {
                             case 12:
                                 BanAPI.banPlayer(playerToBan, ((ProxiedPlayer) sender).getUniqueId(), "Username", TimeUnit.DAYS.toMillis(5));
                                 try{
-                                    ProxyServer.getInstance().getPlayer(playerToBan).disconnect();
+                                    ProxyServer.getInstance().getPlayer(playerToBan).disconnect(new TextComponent("\n§c§lSnapecraft \n§7 \n§8------------------------------ \n§7Du wurdest vom §bServernetzwerk §7gebannt. \n §7Grund: §c" + BanAPI.getReason(playerToBan) + "  §7#" + BanAPI.getBanID(playerToBan) + " \n \n §7Verbleibende Zeit: §c  \n" + BanAPI.getRemainingBanTime(playerToBan) + "\n \n §7Stelle einen §cEntbannungsantrag§7 im Forum: \n §eforum.snapecraft.net \n§8------------------------------"));
                                 } catch(Exception e) {
                                 }
                                 sender.sendMessage(BungeeHelper.prefix + "§aSpieler wegen §cUSERNAME §agebannt!");
@@ -178,7 +183,7 @@ public class BanCMDs extends Command {
                             case 13:
                                 BanAPI.banPlayer(playerToBan, ((ProxiedPlayer) sender).getUniqueId(), "Spamming", TimeUnit.DAYS.toMillis(5));
                                 try{
-                                    ProxyServer.getInstance().getPlayer(playerToBan).disconnect();
+                                    ProxyServer.getInstance().getPlayer(playerToBan).disconnect(new TextComponent("\n§c§lSnapecraft \n§7 \n§8------------------------------ \n§7Du wurdest vom §bServernetzwerk §7gebannt. \n §7Grund: §c" + BanAPI.getReason(playerToBan) + "  §7#" + BanAPI.getBanID(playerToBan) + " \n \n §7Verbleibende Zeit: §c  \n" + BanAPI.getRemainingBanTime(playerToBan) + "\n \n §7Stelle einen §cEntbannungsantrag§7 im Forum: \n §eforum.snapecraft.net \n§8------------------------------"));
                                 } catch(Exception e) {
                                 }
                                 sender.sendMessage(BungeeHelper.prefix + "§aSpieler wegen §cSPAM §agebannt!");
@@ -187,7 +192,7 @@ public class BanCMDs extends Command {
                                 BanAPI.banPlayer(playerToBan, ((ProxiedPlayer) sender).getUniqueId(), "Extrem");
 
                                 try{
-                                    ProxyServer.getInstance().getPlayer(playerToBan).disconnect();
+                                    ProxyServer.getInstance().getPlayer(playerToBan).disconnect(new TextComponent("\n§c§lSnapecraft \n§7 \n§8------------------------------ \n§7Du wurdest vom §bServernetzwerk §7gebannt. \n §7Grund: §c" + BanAPI.getReason(playerToBan) + "  §7#" + BanAPI.getBanID(playerToBan) + " \n \n §7Verbleibende Zeit: §c  \n" + BanAPI.getRemainingBanTime(playerToBan) + "\n \n §7Stelle einen §cEntbannungsantrag§7 im Forum: \n §eforum.snapecraft.net \n§8------------------------------"));
                                 } catch(Exception e) {
                                 }
 

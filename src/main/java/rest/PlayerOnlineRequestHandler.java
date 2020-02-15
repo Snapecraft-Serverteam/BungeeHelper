@@ -1,5 +1,6 @@
-package REST;
+package rest;
 
+import api.Util;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import net.md_5.bungee.api.ProxyServer;

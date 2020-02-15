@@ -1,12 +1,13 @@
 package main;
 
-import Listener.ChatListener;
-import Listener.LoginListener;
-import REST.PlayerListRequestHandler;
-import REST.PlayerOnlineRequestHandler;
-import bansystem.BanCMDs;
-import bansystem.unbanByUIDCMD;
-import bansystem.unbanCMD;
+import bansystem.WarnCMD;
+import listener.ChatListener;
+import listener.LoginListener;
+import rest.PlayerListRequestHandler;
+import rest.PlayerOnlineRequestHandler;
+import bansystem.BanCMD;
+import bansystem.UnbanByUIDCMD;
+import bansystem.UnbanCMD;
 import com.sun.net.httpserver.HttpServer;
 import commands.*;
 import net.md_5.bungee.api.ChatColor;
@@ -52,16 +53,17 @@ public class BungeeHelper extends Plugin {
         ProxyServer.getInstance().getPluginManager().registerCommand(this, new MsgCMD());
         ProxyServer.getInstance().getPluginManager().registerCommand(this, new HelpCMD());
         ProxyServer.getInstance().getPluginManager().registerCommand(this, new SpectateCMD());
-        ProxyServer.getInstance().getPluginManager().registerCommand(this, new BanCMDs());
-        ProxyServer.getInstance().getPluginManager().registerCommand(this, new unbanByUIDCMD());
-        ProxyServer.getInstance().getPluginManager().registerCommand(this, new unbanCMD());
+        ProxyServer.getInstance().getPluginManager().registerCommand(this, new BanCMD());
+        ProxyServer.getInstance().getPluginManager().registerCommand(this, new UnbanByUIDCMD());
+        ProxyServer.getInstance().getPluginManager().registerCommand(this, new UnbanCMD());
+        ProxyServer.getInstance().getPluginManager().registerCommand(this, new WarnCMD());
         ProxyServer.getInstance().getPluginManager().registerCommand(this, new BroadcastCMD());
         //EVENTS
         ProxyServer.getInstance().getPluginManager().registerListener(this, new LoginListener());
         ProxyServer.getInstance().getPluginManager().registerListener(this, new ChatListener());
 
 
-        //Starting the REST API webserver
+        //Starting the rest api webserver
         HttpServer server = null;
         try {
             server = HttpServer.create(new InetSocketAddress(8000), 0);
